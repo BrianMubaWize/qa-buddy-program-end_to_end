@@ -50,13 +50,6 @@ jobs:
                 - newman/newman-run:
                         collection: ./Test-ToDoIst_API.json
                         environment: ./ToDoIstProdServer.json
-  build_artifact:
-                docker:
-                - image: circleci/node:10.14-browsers
-                steps:
-                - run:
-                        name: Build Artifact
-                        command: echo "Going to run the build artifact"
   deploy_to_dev:
                 docker:
                 - image: circleci/node:10.14-browsers
@@ -89,13 +82,9 @@ workflows:
                                 requires:
                                 - tasks_tests
                                 - login_tests
-                        - build_artifact:
-                                requires:
-                                - tasks_tests
-                                - login_tests
                         - deploy_to_dev:
                                 requires:
-                                - build_artifact
+                                - newman-collection-run
                         - hold_for_approval:
                                 type: approval
                                 requires:
