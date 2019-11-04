@@ -1,0 +1,105 @@
+version: 2.1
+orbs:
+  newman: postman/newman@0.0.2
+yarn_install: &yarn_install
+  run:
+    name: yarn install
+    command: yarn install --non-interactive --frozen-lockfile
+jobs:
+  build:
+    docker:
+      - image: circleci/node:10.14-browsers
+
+    working_directory: ~/repo
+
+    environment:
+      URL:            $(env:URL)
+      USER_NAME:      $(env:USER_NAME)
+      PASSWORD:       $(env:PASSWORD)
+  
+
+    steps:
+      - checkout
+      - restore_cache:
+          keys:
+          - v1-dependencies-{{ checksum "package.json" }}
+          - v1-dependencies-
+
+      - save_cache:
+          paths:
+            - node_modules
+          key: v1-dependencies-{{ checksum "package.json" }}
+  login_tests:
+                docker:
+                - image: circleci/node:10.14-browsers
+                steps:
+                - checkout
+                - *yarn_install
+                - run: yarn login:chrome:headless
+  tasks_tests:
+                docker:
+                - image: circleci/node:10.14-browsers
+                steps:
+                - checkout
+                - *yarn_install
+                - run: yarn tasks:chrome:headless
+  newman-collection-run:
+                executor: newman/postman-newman-docker
+                steps:
+                - checkout
+                - newman/newman-run:
+                        collection: ./Test-ToDoIst_API.json
+                        environment: ./ToDoIstProdServer.json
+  build_artifact:
+                docker:
+                - image: circleci/node:10.14-browsers
+                steps:
+                - run:
+                        name: Build Artifact
+                        command: echo "Going to run the build artifact"
+  deploy_to_dev:
+                docker:
+                - image: circleci/node:10.14-browsers
+                steps:
+                - run:
+                        name: Deploy to Dev
+                        command: echo "Going to deploy to dev"
+  deploy_to_qa:
+                docker:
+                - image: circleci/node:10.14-browsers
+                steps:
+                - run:
+                        name: Deploy to QA
+                        command: echo "Going to deploy to QA"
+                - run:
+                        name: Step no 2
+                        command: echo "Going to deploy to QA again"
+workflows:
+        version: 2
+        sample_pipeline:
+                jobs:
+                        - build
+                        - login_tests:
+                                requires:
+                                - build
+                        - tasks_tests:
+                                requires:
+                                - build
+                        - newman-collection-run:
+                                requires:
+                                - tasks_tests
+                                - login_tests
+                        - build_artifact:
+                                requires:
+                                - tasks_tests
+                                - login_tests
+                        - deploy_to_dev:
+                                requires:
+                                - build_artifact
+                        - hold_for_approval:
+                                type: approval
+                                requires:
+                                - deploy_to_dev
+                        - deploy_to_qa:
+                                requires:
+                                - hold_for_approval
