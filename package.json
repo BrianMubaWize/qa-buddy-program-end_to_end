@@ -1,0 +1,25 @@
+{
+  "name": "qa-buddy-program-brian",
+  "version": "1.0.0",
+  "description": "Test Automation Framework for webapp ToDoIst",
+  "main": "index.js",
+  "scripts": {
+    "login:chrome:headless": "testcafe chrome:headless ToDoIst_TAF/Tests/login-tests.js",
+    "tasks:chrome:headless": "testcafe chrome:headless ToDoIst_TAF/Tests/tasks-tests.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/wizeline/qa-buddy-program-brian.git"
+  },
+  "author": "Brian Munoz",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/wizeline/qa-buddy-program-brian/issues"
+  },
+  "homepage": "https://github.com/wizeline/qa-buddy-program-brian#readme",
+  "devDependencies": {
+    "testcafe": "*",
+    "eslint-plugin-testcafe": "^0.2.1",
+    "testcafe-reporter-xunit": "^2.1.0"
+  }
+}

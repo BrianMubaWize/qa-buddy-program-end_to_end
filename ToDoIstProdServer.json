@@ -1,0 +1,14 @@
+{
+	"id": "eb273f1b-6c30-4ed7-b386-2e973192e2fd",
+	"name": "ToDoIstProdServer",
+	"values": [
+		{
+			"key": "url",
+			"value": "https://api.todoist.com/rest/v1/",
+			"enabled": true
+		}
+	],
+	"_postman_variable_scope": "environment",
+	"_postman_exported_at": "2019-10-30T16:08:06.499Z",
+	"_postman_exported_using": "Postman/7.9.0"
+}
