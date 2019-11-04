@@ -361,11 +361,11 @@
 									"});",
 									"",
 									"pm.test(\"Validate Task Created Time\", function () {",
-									"    pm.expect(jsonData.created).to.eql(Task_Created_At);",
+									"    pm.expect(jsonData.created).to.eql(environment.Task_Created_At);",
 									"});",
 									"",
 									"pm.test(\"Validate Task Created ID\", function () {",
-									"    pm.expect(jsonData.id).to.eql(ID_Task_Created);",
+									"    pm.expect(jsonData.id).to.eql(environment.ID_Task_Created);",
 									"});"
 								],
 								"type": "text/javascript"
