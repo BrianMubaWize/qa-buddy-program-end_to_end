@@ -66,12 +66,15 @@ jobs:
                         command: echo "Going to deploy to QA"
                 - run:
                         name: Step no 2
-                        command: echo "Going to deploy to QA againstep 2"
+                        command: echo "Going to deploy to Q2"
 workflows:
         version: 2
         sample_pipeline:
                 jobs:
-                        - build
+                        - build:
+                                filters:
+                                        branches:
+                                                only: WIP
                         - login_tests:
                                 requires:
                                 - build
