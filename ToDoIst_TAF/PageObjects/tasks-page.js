@@ -24,8 +24,9 @@ class TasksPage
 		this.time             = this.today.getHours() + ':' + this.today.getMinutes() + ':' + this.today.getSeconds();
 		this.taskCreated      = Selector('.text.sel_item_content').withText(this.time);
 
-		await this.clickAddTask();
+		//await this.clickAddTask();
 		await t
+			.click(this.addTask)
 			.typeText(this.inputTask, String(this.time))
 			.click(this.createTask)
 			.wait(2000);
