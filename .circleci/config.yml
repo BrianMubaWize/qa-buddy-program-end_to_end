@@ -71,7 +71,10 @@ workflows:
         version: 2
         sample_pipeline:
                 jobs:
-                        - build
+                        - build:
+                                filters:
+                                        branches:
+                                                only: WIP
                         - login_tests:
                                 requires:
                                 - build
