@@ -1,0 +1,533 @@
+{
+	"info": {
+		"_postman_id": "d5e3d6a1-d3a0-4701-9598-3231fd74e2ba",
+		"name": "Test-ToDoIst_API",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Projects",
+			"item": [
+				{
+					"name": "Get All Projects",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "52853f591a066c380152a6523c64f0bdccd2f68e",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}projects",
+							"host": [
+								"{{url}}projects"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create a new project",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "30706b57-9298-4c36-a165-205d31673bae",
+								"exec": [
+									"var jsonData = pm.response.json();",
+									"",
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"Validate Name\", function () {",
+									"    pm.expect(jsonData.name).to.eql(\"Movies to watch\");",
+									"});",
+									"pm.environment.set(\"ID_Created\", jsonData.id);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "52853f591a066c380152a6523c64f0bdccd2f68e",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Movies to watch\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}projects",
+							"host": [
+								"{{url}}projects"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get a project",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "52853f591a066c380152a6523c64f0bdccd2f68e",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}projects/{{ID_Created}}",
+							"host": [
+								"{{url}}projects"
+							],
+							"path": [
+								"{{ID_Created}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update a project",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "d97f5004-de84-4c86-a337-11e63c7099e2",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "52853f591a066c380152a6523c64f0bdccd2f68e",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Movies to updated\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}projects/{{ID_Created}}",
+							"host": [
+								"{{url}}projects"
+							],
+							"path": [
+								"{{ID_Created}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete a project",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "52853f591a066c380152a6523c64f0bdccd2f68e",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{url}}projects/{{ID_Created}}",
+							"host": [
+								"{{url}}projects"
+							],
+							"path": [
+								"{{ID_Created}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get a project",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "6f81d469-fc6f-44b4-bebc-7b58c67f6f94",
+								"exec": [
+									"pm.test(\"Status code is 404\", function () {",
+									"    pm.response.to.have.status(404);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "52853f591a066c380152a6523c64f0bdccd2f68e",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}projects/{{ID_Created}}",
+							"host": [
+								"{{url}}projects"
+							],
+							"path": [
+								"{{ID_Created}}"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Tasks",
+			"item": [
+				{
+					"name": "Get Active Tasks",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "52853f591a066c380152a6523c64f0bdccd2f68e",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{tasks_url}}",
+							"host": [
+								"{{tasks_url}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create New Task",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "e60a3823-59a8-4e9e-a2ac-e353989809d1",
+								"exec": [
+									"var jsonData = pm.response.json();",
+									"",
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"Validate Task Created Content\", function () {",
+									"    pm.expect(jsonData.content).to.eql(\"Go to the movies\");",
+									"});",
+									"pm.test(\"Validate Task Created Priority\", function () {",
+									"    pm.expect(jsonData.priority).to.eql(2);",
+									"});",
+									"",
+									"pm.environment.set(\"ID_Task_Created\", jsonData.id);",
+									"pm.environment.set(\"Task_Created_At\", jsonData.created);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "52853f591a066c380152a6523c64f0bdccd2f68e",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"content\": \"Go to the movies\",\n    \"due_string\": \"tomorrow at 12:00\",\n    \"due_lang\": \"en\",\n    \"priority\": 2\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{tasks_url}}",
+							"host": [
+								"{{tasks_url}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get an active task",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "bdd17f41-8ff2-4cd1-9078-83088bf262ab",
+								"exec": [
+									"var jsonData = pm.response.json();",
+									"",
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"Validate Task Created Content\", function () {",
+									"    pm.expect(jsonData.content).to.eql(\"Go to the movies\");",
+									"});",
+									"pm.test(\"Validate Task Created Priority\", function () {",
+									"    pm.expect(jsonData.priority).to.eql(2);",
+									"});",
+									"",
+									"pm.test(\"Validate Task Created Time\", function () {",
+									"    pm.expect(jsonData.created).to.eql(environment.Task_Created_At);",
+									"});",
+									"",
+									"pm.test(\"Validate Task Created ID\", function () {",
+									"    pm.expect(jsonData.id).to.eql(environment.ID_Task_Created);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "52853f591a066c380152a6523c64f0bdccd2f68e",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{tasks_url}}/{{ID_Task_Created}}",
+							"host": [
+								"{{tasks_url}}"
+							],
+							"path": [
+								"{{ID_Task_Created}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Close a Task",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "e13562e6-e901-4e96-a112-371f30295638",
+								"exec": [
+									"pm.test(\"Status code is 204\", function () {",
+									"    pm.response.to.have.status(204);",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "52853f591a066c380152a6523c64f0bdccd2f68e",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{tasks_url}}/{{ID_Task_Created}}/close",
+							"host": [
+								"{{tasks_url}}"
+							],
+							"path": [
+								"{{ID_Task_Created}}",
+								"close"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Reopen a Task",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "2a1013ed-ebb4-4f3c-a3d8-19c190bce267",
+								"exec": [
+									"pm.test(\"Status code is 204\", function () {",
+									"    pm.response.to.have.status(204);",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "52853f591a066c380152a6523c64f0bdccd2f68e",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{tasks_url}}/{{ID_Task_Created}}/reopen",
+							"host": [
+								"{{tasks_url}}"
+							],
+							"path": [
+								"{{ID_Task_Created}}",
+								"reopen"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Task",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "075c4ba7-78be-41a9-8c23-d36cc131a0f1",
+								"exec": [
+									"pm.test(\"Status code is 204\", function () {",
+									"    pm.response.to.have.status(204);",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{tasks_url}}/{{ID_Task_Created}}",
+							"host": [
+								"{{tasks_url}}"
+							],
+							"path": [
+								"{{ID_Task_Created}}"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		}
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "52853f591a066c380152a6523c64f0bdccd2f68e",
+				"type": "string"
+			}
+		]
+	},
+	"protocolProfileBehavior": {}
+}
