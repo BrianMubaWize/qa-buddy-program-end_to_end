@@ -66,7 +66,7 @@ jobs:
                         command: echo "Going to deploy to QA"
                 - run:
                         name: Step no 2
-                        command: echo "Going to deploy to QA again"
+                        command: echo "Going to deploy to QA againstep 2"
 workflows:
         version: 2
         sample_pipeline:
